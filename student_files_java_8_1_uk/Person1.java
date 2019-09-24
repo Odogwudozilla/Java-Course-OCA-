@@ -1,12 +1,12 @@
 import java.time.*;
 
-class Example {
+class Person1 {
   private int dateofBirth;
   private char maritalStatus;
   private int todayYear;
   // more attributes
 
-  Person(int todayYear, int dateofBirth, char maritalStatus) {
+  public Person1(int todayYear, int dateofBirth, char maritalStatus) {
     this.dateofBirth = dateofBirth;
     this.maritalStatus = maritalStatus;
     this.todayYear = todayYear;
@@ -34,10 +34,10 @@ class Example {
 
   public static void main(String[] args) {
     Person Dozie = new Person(2019, 1987, 'U');
-    // Dozie.getAge(2019);
+    Dozie.getAge();
     Dozie.marry();
 
-    System.out.println("Succes");
+    System.out.println("Success");
 
   }
 }
