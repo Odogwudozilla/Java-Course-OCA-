@@ -20,7 +20,7 @@ class BankAccount {
   }
 
   public void transfer(float amount, BankAccount beneficiary) {
-    balance = balance - amount;
+    withdraw(amount);
     beneficiary.deposit(amount);
   }
 
