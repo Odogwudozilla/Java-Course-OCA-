@@ -1,0 +1,1018 @@
+The classes
+public abstract class AbstractNode<T extends AbstractNode<T>> implements Node<T> {
+
+  private T parent;
+
+  public void setParent(T t){
+
+    if(isChild(t))
+
+      throw new IllegalArgumentException(
+       String.format("%s is a child of %s, so can't be a parent",t, this));
+
+    this.parent=t;
+
+  }
+
+ 
+
+  protected AbstractNode(){ }
+
+ 
+
+  public T getParent(){
+
+    return parent;
+
+  }
+
+ 
+
+  private boolean isChild(T t){
+
+    T node = t;
+
+    while(node!=null && node.getParent()!=null){
+
+      if(node.getParent()==this) return true;
+
+      node=node.getParent();
+
+    }
+
+    return false;
+
+  }
+
+ 
+
+public int compareLevelTo(T other){
+
+     if(other==null) return 1;
+
+     if(this.getParent()==null && other.getParent()==null) return 0;
+
+     if(this.getParent()==null) return -1;
+
+     if(this.getParent()==other.getParent()) return 0;
+
+      return this.getParent().compareLevelTo(other.getParent());
+
+  }
+
+ 
+
+  public int compareTo(T other){
+
+    if(getParent()==null) return -1;
+
+    if(other.getParent()==null) return 1;
+
+    if (this.compareLevelTo(other)>0){
+
+      if(getParent()==other) return 1;
+
+      return getParent().compareTo(other);
+
+    }
+
+    if (this.compareLevelTo(other)<0){
+
+      if(this==other.getParent()) return -1;
+
+      return this.compareTo(other.getParent());
+
+    }
+
+    if (this.getParent()==other.getParent()){
+
+      return this.toString().compareTo(other.toString());
+
+    }
+
+    return this.getParent().compareTo(other.getParent());
+
+  }
+
+}
+
+ 
+ 
+
+public class NameNode extends AbstractNode<NameNode>{
+
+  private String name;
+
+  public NameNode(String name, NameNode parent){
+
+     setParent(parent);
+
+     this.name=name;
+
+  }
+
+ 
+
+  public NameNode(String name){
+
+     this.name=name;
+
+  }
+
+ 
+
+  public String getName(){
+
+     return name;
+
+  }
+
+    
+
+  public String toString(){
+
+    return name;
+
+  }
+
+}
+
+ 
+
+public class TreeComparator<T extends Node<T>> implements Comparator<T> {
+
+ 
+
+  private Comparator<T> siblingComparator;
+
+ 
+
+  public TreeComparator(Comparator<T> siblingComparator){
+
+    this.siblingComparator = siblingComparator;
+
+  }
+
+ 
+
+  public TreeComparator(){}
+
+ 
+
+  public void setSiblingComparator(Comparator<T> comparator){
+
+    siblingComparator=comparator;
+
+  }
+
+ 
+
+  public int compare(T first, T second){
+
+    if(first.getParent()==null) return -1;
+
+    if(second.getParent()==null) return 1;
+
+    if (first.compareLevelTo(second)>0){
+
+      if(first.getParent().equals(second)) return 1;
+
+      return compare(first.getParent(),second);
+
+    }
+
+    if (first.compareLevelTo(second)<0){
+
+      if(first.equals(second.getParent())) return -1;
+
+      return compare(first,second.getParent());
+
+    }
+
+    if (first.getParent().equals(second.getParent())&&siblingComparator!=null){
+
+       return siblingComparator.compare(first,second);
+
+    }
+
+    return compare(first.getParent(),second.getParent());
+
+  }
+
+}
+
+public class NodeTree<T extends Node<T>> implements Tree<T>{
+
+ 
+
+  private List<T> nodeList = new ArrayList<>();
+
+ 
+
+  public NodeTree(){}
+
+  public NodeTree(List<T> list){
+
+   nodeList=new ArrayList<>(list);
+
+  }
+
+ 
+
+  public void add(T t){
+
+    nodeList.add(t);
+
+  }
+
+ 
+
+  public List<T> descendantsOf(T node){
+
+    Tree<T> copy = new NodeTree<>(nodeList);
+
+    TreeIterator<T> iterator = copy.iterator();
+
+    iterator.startWith(node);
+
+    List<T> list = new ArrayList<>();
+
+    while(iterator.hasNext()){
+
+      list.add(iterator.next());
+
+    }
+
+    return list;
+
+  }
+
+ 
+
+ 
+
+  public long descendantCount(T t){
+
+    return descendantsOf(t).size()-1;
+
+  }
+
+ 
+
+  public int descendantSum(T t, NodeInt<T> nodeInt){
+
+    List<T> list = descendantsOf(t);
+
+    int sum=0;
+
+    for(T node: list){
+
+      sum+=nodeInt.get(node);
+
+    }
+
+    return sum;
+
+  }
+
+ 
+
+  public double descendantSum(T t, NodeDouble<T> nodeInt){
+
+    List<T> list = descendantsOf(t);
+
+    double sum=0;
+
+    for(T node: list){
+
+      sum+=nodeInt.get(node);
+
+    }
+
+    return sum;
+
+  }
+
+ 
+
+  public double descendantSum(T t, ToDoubleFunction<T> f){
+
+    List<T> list = descendantsOf(t);
+
+    double sum=0;
+
+    for(T node:list){
+
+      sum+=f.applyAsDouble(node);
+
+    }
+
+    return sum;
+
+  }
+
+ 
+
+ 
+
+ 
+public long descendantSum(T t, ToLongFunction<T> f){
+
+    List<T> list = descendantsOf(t);
+
+    long sum=0;
+
+    for(T node:list){
+
+      sum+=f.applyAsLong(node);
+
+    }
+
+    return sum;
+
+  }
+
+ 
+
+ 
+
+  public double descendantAverage(T t, ToDoubleFunction<T> f){
+
+    return descendantSum(t, f)/(descendantCount(t) + 1);
+
+  }
+
+ 
+
+ 
+
+  public double descendantMax(T t, ToDoubleFunction<T> f){
+
+    List<T> list = descendantsOf(t);
+
+    double max=Double.MIN_VALUE;
+
+    for(T node:list){
+
+      double val = f.applyAsDouble(node);
+
+      if(val>max)max=val;
+
+    }
+
+    return max;
+
+  }
+
+ 
+
+  public long descendantMax(T t, ToLongFunction<T> f){
+
+    List<T> list = descendantsOf(t);
+
+    long max=Long.MIN_VALUE;
+
+    for(T node:list){
+
+      long val = f.applyAsLong(node);
+
+      if(val>max)max=val;
+
+    }
+
+    return max;
+
+  }
+
+ 
+
+  public double descendantMin(T t, ToDoubleFunction<T> f){
+
+    List<T> list = descendantsOf(t);
+
+    double min=Double.MAX_VALUE;
+
+    for(T node:list){
+
+      double val = f.applyAsDouble(node);
+
+      if(val<min)min=val;
+
+    }
+
+    return min;
+
+  }
+
+ 
+
+  public long descendantMin(T t, ToLongFunction<T> f){
+
+    List<T> list = descendantsOf(t);
+
+    long min=Long.MAX_VALUE;
+
+    for(T node:list){
+
+      long val = f.applyAsLong(node);
+
+      if(val<min)min=val;
+
+    }
+
+    return min;
+
+  } 
+
+ 
+ 
+
+  public TreeIterator<T> iterator(){
+
+     return new TreeIterator<T>(){
+
+ 
+
+         private Iterator<T> iterator;
+
+         private T current;
+
+         private List<T> ancestors = new ArrayList<>();
+
+         private boolean nextCalled;
+
+         private T startWith;
+
+         private boolean firstNextCalled;
+
+         private boolean started;
+
+ 
+
+         { Collections.sort(nodeList);
+
+           iterator=nodeList.iterator();  }
+
+ 
+
+         public void orderSiblingsBy(Comparator<T> comparator){
+
+           // orderSiblingsBy can only be used as the first statement
+
+           if (started){
+
+             throw new IllegalStateException("orderSiblingsBy can only be called as the first statement of a TreeIterator"
+
+             );
+
+           }
+
+           TreeComparator<T> treeComparator = new TreeComparator<>(comparator);
+
+           Collections.sort(nodeList, treeComparator);
+
+           iterator=nodeList.iterator();
+
+         }
+
+ 
+
+         public void startWith(T startWith){
+
+           if(firstNextCalled)
+
+             throw new IllegalStateException(
+
+             "startWith can only be called before the first call to next");
+
+           List<T> list=new ArrayList<>();
+
+           this.startWith=startWith;
+
+           T node = null;
+
+           while(iterator.hasNext()){
+
+              node = iterator.next();
+
+              if(childOfStartWith(node))
+
+                list.add(node);
+
+            }
+
+           this.iterator=list.iterator();
+
+           started=true;
+
+         }
+
+ 
+
+         private boolean childOfStartWith(T t){
+
+           T node = t;
+
+           if(node == startWith) return true;
+
+           while(node.getParent() != null){
+
+             if(node.getParent()==startWith) return true;
+
+             node=node.getParent();
+
+           }
+
+           return false;
+
+         }
+
+ 
+
+         public boolean hasNext(){
+
+           return iterator.hasNext();
+
+         }
+
+        
+
+ 
+
+         public T next(){
+
+           if(iterator.hasNext()){
+
+             ancestors.clear();
+
+             current=iterator.next();
+
+             fillAncestors(current);
+
+             nextCalled=true;
+
+             started=true;
+
+             return current;
+
+           }
+
+           else throw new IllegalStateException("Last element has been reached");
+
+         }
+
+ 
+
+         public int level(){
+
+           return ancestors.size();
+
+         }
+
+ 
+
+         private void fillAncestors(T t){
+
+           if(t==startWith) return ;
+
+           T node=t;
+
+           while(node.getParent()!=null){
+
+             if(node.getParent()==startWith){
+
+               ancestors.add(node.getParent());
+
+               return;
+
+             }
+
+             ancestors.add(node.getParent());
+
+             node=node.getParent();
+
+           }
+
+         }
+
+ 
+
+         public boolean isLeaf(){
+
+           return descendantCount(current)==0;
+
+         }
+
+ 
+
+         public void remove(){
+
+            if(nextCalled){
+
+              if(isLeaf()){
+
+                nodeList.remove(current);
+
+                iterator.remove();
+
+                nextCalled=false;
+
+              }
+
+              else {
+
+                throw new RuntimeException(String.format( "%s is a parent, so can't be removed", current));
+
+              }
+
+            }
+
+            else {
+
+              throw new IllegalStateException("remove can only be called after a call to next");
+
+            }
+
+         }
+
+ 
+ 
+
+         public String path(String separator){
+
+           StringBuilder sb = new StringBuilder();
+
+           sb.append(new StringBuilder(separator).append(current));
+
+           for(T t:ancestors){
+
+              sb.insert(0,new StringBuilder(separator).append(t));
+
+           }
+
+           return sb.deleteCharAt(0).toString();
+
+         }
+
+ 
+
+         public String path(String separator, Function<T,String> f){
+
+           StringBuilder sb = new StringBuilder();
+
+           sb.append(new StringBuilder(separator).append(f.apply(current)));
+
+           for(T t:ancestors){
+
+              sb.insert(0,new StringBuilder(separator).append(f.apply(t)));
+
+           }
+
+           return sb.deleteCharAt(0).toString();
+
+         }
+
+     };
+
+  }
+
+}
+
+ 
+ 
+
+public class TreeApp{
+
+ 
+
+  public static void main (String args[]){
+
+ 
+
+    NameNode a = new NameNode("a",null);
+
+    NameNode b = new NameNode("b",a);
+
+    NameNode c = new NameNode("c",b);
+
+    NameNode d = new NameNode("d",a);
+
+    NameNode e = new NameNode("e",b);
+
+    NameNode f = new NameNode("f",e);
+
+ 
+
+    final NodeTree<NameNode> list = new NodeTree<>();
+
+ 
+
+    list.add(b);
+
+    list.add(a);
+
+    list.add(e);
+
+    list.add(c);
+
+    list.add(f);
+
+    list.add(d);
+
+ 
+
+    TreeIterator<NameNode> iterator = list.iterator();
+
+    Function<NameNode,String> nodeName = node -> node.getName();
+
+    ToLongFunction<NameNode> nameLength = node -> node.getName().length();
+
+    Comparator<NameNode> comparator =
+
+        (first,second) -> second.getName().compareTo(first.getName());
+
+ 
+
+ 
+
+    iterator.orderSiblingsBy(comparator);
+
+    iterator.startWith(a);
+
+    while(iterator.hasNext()){
+
+      NameNode node=iterator.next();
+
+      System.out.println(node + " " + iterator.level() + " " +
+
+                 list.descendantCount(node)+ " "+
+
+                 iterator.sum(nameLength) + " " +
+
+                 iterator.path("/", n->n.getName().toUpperCase())+ " " +
+
+                 iterator.isLeaf());
+
+    }
+
+ 
+
+  }
+
+ 
+
+}
+
+ 
+ 
+
+class Employee implements Comparable<Employee>{
+
+  private String name;
+
+  private int salary;
+
+ 
+
+  Employee(String name, int salary){
+
+   this.name=name;
+
+   this.salary=salary;
+
+  }
+
+ 
+
+  public int getSalary(){
+
+    return salary;
+
+  }
+
+ 
+
+  @Override
+
+  public int compareTo(Employee other){
+
+    return getName().compareTo(other.getName());
+
+  }
+
+ 
+
+  public String getName(){
+
+    return name;
+
+  }
+
+ 
+
+  public String toString(){
+
+    return name;
+
+  }
+
+}
+
+ 
+
+class EmployeeNode extends AbstractNode<EmployeeNode>{
+
+  private Employee employee;
+
+  private EmployeeNode parent;
+
+ 
+
+  EmployeeNode(Employee employee, EmployeeNode parent){
+
+   this.employee=employee;
+
+   setParent(parent);
+
+  }
+
+ 
+
+  EmployeeNode(Employee employee){
+
+   this.employee=employee;
+
+  }
+
+ 
+
+  public Employee getEmployee(){
+
+    return employee;
+
+  }
+
+ 
+
+  public String toString(){
+
+    return employee.toString();
+
+  }
+
+ 
+
+  public boolean equals(EmployeeNode other){
+
+    return getEmployee().equals(other.getEmployee());
+
+  }
+
+ 
+
+}
+
+public class EmployeeApp{
+
+  public static void main (String args[]){
+
+ 
+
+          String[][] employees = {
+
+                  {"3381","SMITS","CLERICAL WORKER","7902","2400","","20"},
+
+                  {"3462","ALKEMA","SALESPERSON","4621","2600","300","30"},
+
+                  {"3518","WALSTRA","SALESPERSON","4621","2250","500","30"},
+
+                  {"3930","PIETERS","MANAGER","6221","3975","","20"},
+
+                  {"4510","VERGEER","SALESPERSON","4621","2250","1400","30"},
+
+                  {"4621","KLAASEN","MANAGER","6221","3850","","30"},
+
+                  {"5810","HEUVEL","MANAGER","6221","3450","","10"},
+
+                  {"5931","SANDERS","ANALYST","3930","4000","","20"},
+
+                  {"6221","KRAAY","DIRECTOR","","6000","","10"},
+
+                  {"6500","DROST","SALESPERSON","4621","2500","0","30"},
+
+                  {"6681","ADELAAR","CLERICAL                                     WORKER","5931","2100","","20"},
+
+                  {"7900","APPEL","CLERICAL WORKER","4621","1950","","30"},
+
+                  {"7902","VERMEULEN","ANALYST","3930","3900","","20"},
+
+                  {"8222","MANDERS","CLERICAL WORKER","5810","2300","","10"}};
+
+ 
+
+    Arrays.sort(employees, new Comparator<String[]>(){
+
+       public int compare(String[] first, String[] other){
+
+         return first[3].compareTo(other[3]);
+
+    }});
+
+    final Tree<EmployeeNode> list = new NodeTree<>();
+
+    List<EmployeeNode> wlist = new ArrayList<>();
+
+    for(int i=0;i<employees.length;i++){
+
+       wlist.add(new EmployeeNode(
+
+      new Employee(employees[i][1],Integer.parseInt(employees[i][4]))));
+
+    }
+
+    for(int i=0;i<employees.length;i++){
+
+      for(int j=0;j<employees.length;j++){
+
+        if(employees[i][0].equals(employees[j][3])){
+
+          wlist.get(j).setParent(wlist.get(i));
+
+        }
+
+      }
+
+    }
+
+    for(EmployeeNode node:wlist){
+
+      list.add(node);
+
+    }
+
+ 
+
+    TreeIterator<EmployeeNode> iterator = list.iterator();
+
+ 
+
+    ToLongFunction<EmployeeNode> salary =
+
+          x->x.getEmployee().getSalary();
+
+ 
+
+    Comparator<EmployeeNode> comparator =
+
+   (x,y)->y.getEmployee().getName().compareTo(x.getEmployee().getName());
+
+    iterator.orderSiblingsBy(comparator);
+
+    for(EmployeeNode node:wlist){
+
+      if(node.getEmployee().getName().equals("KRAAY"))
+
+        iterator.startWith(node);
+
+    }
+
+ 
+
+  
+
+ 
+ 
+
+ while(iterator.hasNext()){
+
+      EmployeeNode node=iterator.next();
+
+     // if(node==e)iterator.remove();
+
+      System.out.println( String.format("%d %3d %5d %5d %5d %6d %5.2f",
+
+                         iterator.level(),
+
+                         list.descendantCount(node),
+
+                         node.getEmployee().getSalary(),
+
+                         list.descendantMin(node,salary),
+
+                         list.descendantMax(node,salary),
+
+                         list.descendantSum(node,salary),
+
+                         list.descendantAverage(node,
+
+   x->x.getEmployee().getSalary()))+ " " +
+
+                         iterator.path("/",
+
+   x->x.getEmployee().getName().toLowerCase()));
+
+    }
+
+  }
+
+}
