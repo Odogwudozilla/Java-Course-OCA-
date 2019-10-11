@@ -1,10 +1,10 @@
 package com.vijfhart.casestudy.tree;
 
 public interface Node<E extends Node<E>> extends Comparable<E>, LevelComparable<E> {
-  public boolean isLeaf();
+  boolean isLeaf();
 
-  public void setParent(E node);
+  void setParent(E parent);
 
-  public E getParent();
+  E getParent();
 
 }
