@@ -1,3 +1,4 @@
+
 class FactorialCalc {
   long number;
 
@@ -19,5 +20,7 @@ class Factorial {
   public static void main(String[] args) {
     FactorialCalc fr = new FactorialCalc(15);
     System.out.println(fr.factorialMethod());
+
   }
+
 }
