@@ -30,6 +30,19 @@ class Pig extends Animal {
 
 class Example {
 
+  public static void banner(String bumperOrFender) {
+    switch (bumperOrFender) {
+    case "bumper":
+      System.out.printf("%n%n|------THIS IS ANOTHER BLOCK OF RESULTS-----|%n");
+      break;
+
+    case "fender":
+      System.out.printf("-------------END OF RESULTS block------------%n");
+      break;
+    }
+
+  }
+
   public void switchString(String input) {
     switch (input) {
     case "a":
@@ -54,27 +67,19 @@ class Example {
     System.out.println(str.indexOf("n"));
     System.out.println("AniMaL    ".trim().toLowerCase().replace('a', 'A'));
 
-    StringBuilder alpha = new StringBuilder();
-    for (char current = 'a'; current <= 'z'; current++) {
-      alpha.append(current);
-      System.out.println(alpha);
-    }
-
+    banner("bumper");
     StringBuilder sb = new StringBuilder("animals");
     sb.insert(7, "-");
     sb.insert(0, "-");
     sb.insert(4, "-");
     System.out.println(sb);
 
-    // int[] numbers = { 6, 9, 1 };
-    // Array.sort(numbers);
-    // for (int i = 0; i < numbers.length; i++)
-    // System.out.println(numbers[i] + " ");
-
+    banner("bumper");
     Pig myPig = new Pig(); // Create a Pig object
     myPig.animalSound();
     myPig.sleep();
 
+    banner("bumper");
     List<String> list = new ArrayList<>();
     List<String> newList = new ArrayList<>();
 
@@ -84,6 +89,7 @@ class Example {
     Collections.sort(list);
     System.out.println(list);
 
+    banner("bumper");
     int[][] twoD = new int[3][2];
     for (int i = 0; i < twoD.length; i++) {
       for (int j = 0; j < twoD[i].length; j++)
@@ -91,16 +97,10 @@ class Example {
       System.out.println(); // time for a new row
     }
 
-    List<Integer> list1 = Arrays.asList(4, 8, 15, 16, 23, 42);
-    System.out.println(list1);
-
-    System.out.println("------THIS IS ANOTHER BLOCK OF COD RESULTS-----");
-    LocalDate date2 = LocalDate.of(2020, Month.JANUARY, 20);
-    LocalTime time = LocalTime.of(5, 15);
-    LocalDateTime dateTime = LocalDateTime.of(date2, time).minusDays(1).minusHours(10).minusSeconds(30);
-
+    banner("bumper");
     myPig.fly((short) 1);
 
+    banner("bumper");
     int i = 1, j = 10;
     int k = 1;
     do {
@@ -111,17 +111,29 @@ class Example {
     } while (i < 5);
     System.out.println("i=" + i + " j=" + j);
 
+    banner("bumper");
     Example tc = new Example();
     tc.switchString("b");
 
-    // Integer ia, iib;
-    // ia = iib = 36464;
-
+    banner("bumper");
     Integer ia = 128;
     Integer iib = 128;
-
     System.out.println(ia.equals(iib));
     System.out.println(ia == iib);
+
+    banner("bumper");
+    List<String> bunnies = new ArrayList<>();
+    bunnies.add("long ear");
+    bunnies.add("floppy");
+    bunnies.add("hoppy");
+    System.out.println(bunnies); // [long ear, floppy, hoppy]
+    bunnies.removeIf(noH -> noH.charAt(0) != 'h');
+    System.out.println(bunnies); // [hoppy
+
+    banner("bumper");
+    int iE = 1234567890;
+    float f = iE;
+    System.out.println(iE + " " + f + " " + (iE - (int) f));
 
   }
 
