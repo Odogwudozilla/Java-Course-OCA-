@@ -56,6 +56,7 @@ class Example {
     default:
       System.out.println("none");
     }
+
   }
 
   public static void main(String[] args) {
@@ -133,7 +134,10 @@ class Example {
     banner("bumper");
     int iE = 1234567890;
     float f = iE;
-    System.out.println(iE + " " + f + " " + (iE - (int) f));
+    System.out.println(iE + " >< " + f + " >< " + (iE - (int) f));
+    System.out.println(10_000_000);
+    char c = 320;
+    // byte b = 320;
 
   }
 
