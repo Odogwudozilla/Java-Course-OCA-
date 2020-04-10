@@ -1,6 +1,6 @@
-package classDesign.files;
+package classDesign;
 
-class Mammal extends Animal {
+public class Mammal extends Animal {
   private String mammalSpecies;
   // protected int Id;
 

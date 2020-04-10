@@ -1,4 +1,4 @@
-package classDesign.files;
+package classDesign;
 
 public class Mmadu extends Mammal {
   protected String name = "Homo Sapien";
@@ -13,15 +13,16 @@ public class Mmadu extends Mammal {
   }
 
   public String getMammalDetails() {
-    return "This is a Homo Sapien";
+    return " and also a Homo Sapien";
   }
 
   public static void main(String[] args) {
     Mmadu odogwu = new Mmadu();
+
     // System.out.println(odogwu.getSpecies());
     odogwu.displayMmaduDetails();
     System.out.println(new Mmadu().getMammalDetails());
-    System.out.println(new Mammal("mammalia").getMammalDetails());
+    System.out.println(odogwu.getMammalDetails());
 
   }
 

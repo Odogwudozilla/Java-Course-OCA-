@@ -1,6 +1,6 @@
-package classDesign.files;
+package classDesign;
 
-class Animal {
+public class Animal {
   private int Id;
 
   public Animal(int animalId) {

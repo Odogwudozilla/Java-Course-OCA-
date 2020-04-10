@@ -1,4 +1,4 @@
-package classDesign.files;
+package classDesign;
 
 public class Enwe extends Mammal {
   public Enwe() {
