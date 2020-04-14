@@ -5,12 +5,13 @@ public class Example1 {
 
     String letters = "abc";
 
-    number(number);
+    System.out.println(number(number));
 
-    letters = letters(letters);
+    // letters = letters(letters);
 
     System.out.println(number + letters);
 
+    System.out.println(number(number) + " " + letters);
   }
 
   public static int number(int number) {

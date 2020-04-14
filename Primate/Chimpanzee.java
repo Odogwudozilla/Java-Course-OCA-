@@ -1,5 +1,6 @@
 public class Chimpanzee extends Ape {
   private int numberOfArms = 4;
+  protected String name = "Harambe";
 
   public Chimpanzee(int age) {
     super(age);
@@ -15,6 +16,16 @@ public class Chimpanzee extends Ape {
 
   public String overrideCandidate() {
     return super.overrideCandidate() + " (not really)";
+  }
+
+  // overload (different signature)
+  public int getAge(int itsAge) {
+    return itsAge;
+  }
+
+  // override (same signature but same or more accessibility)
+  public int getAge() {
+    return numberOfArms;
   }
 
   public static void main(String[] args) {

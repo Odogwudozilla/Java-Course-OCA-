@@ -2,6 +2,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "CodeLens (Launch) - Enwe",
+      "request": "launch",
+      "mainClass": "classDesign.Enwe",
+      "projectName": "vijfhart_79055ee4"
+    },
+    {
+      "type": "java",
       "name": "CodeLens (Launch) - TreeApp",
       "request": "launch",
       "mainClass": "TreeApp"

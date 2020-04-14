@@ -1,15 +1,15 @@
 package classDesign;
 
-public class Animal {
-  private int Id;
+class Animal {
+  // private int Id;
 
-  public Animal(int animalId) {
-    this.Id = animalId;
+  public Animal() {
+    // this.Id = animalId;
     // super();
-    // System.out.println("Animal");
+    System.out.println("Animal");
   }
 
-  public int getAnimalId() {
-    return Id;
-  }
+  // public int getAnimalId() {
+  // return Id;
+  // }
 }

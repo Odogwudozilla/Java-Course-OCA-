@@ -6,7 +6,7 @@ class Ape extends Primate {
     this.age = age;
   }
 
-  public int getAge() {
+  protected int getAge() {
     return age;
   }
 
