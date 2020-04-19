@@ -1,5 +1,3 @@
-package classDesign;
-
 public class Mmadu {
   protected String name = "Homo Sapien";
 

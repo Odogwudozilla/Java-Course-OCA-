@@ -1,12 +1,11 @@
-package classDesign;
+public class Mammal extends Animal {
+  protected int id;
+  protected String species;
 
-class Mammal extends Animal {
-  // protected int Id;
-
-  public Mammal() {
-    // super(002);
-    // this.mammalSpecies = species;
-    // this.Id = Id;
+  public Mammal(String mammalSpecies) {
+    super();
+    this.species = mammalSpecies;
+    this.Id = super.Id;
 
     System.out.println("mammal");
   }

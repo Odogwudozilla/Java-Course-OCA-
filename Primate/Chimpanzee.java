@@ -34,4 +34,4 @@ public class Chimpanzee extends Ape {
     System.out.println(new Primate().overrideCandidate());
     System.out.println(new Chimpanzee(3).overrideCandidate());
   }
-}
+}-

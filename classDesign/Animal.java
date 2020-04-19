@@ -1,7 +1,5 @@
-package classDesign;
-
-class Animal {
-  // private int Id;
+public class Animal {
+  private int Id;
 
   public Animal() {
     // this.Id = animalId;
@@ -9,7 +7,7 @@ class Animal {
     System.out.println("Animal");
   }
 
-  // public int getAnimalId() {
-  // return Id;
-  // }
+  public int getAnimalId() {
+  return Id;
+  }
 }

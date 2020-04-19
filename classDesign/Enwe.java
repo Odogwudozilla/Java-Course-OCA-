@@ -1,4 +1,3 @@
-package classDesign;
 
 public class Enwe extends Mammal {
 
