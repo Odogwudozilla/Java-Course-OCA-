@@ -5,7 +5,6 @@ public class Mammal extends Animal {
   public Mammal(String mammalSpecies) {
     super();
     this.species = mammalSpecies;
-    this.Id = super.Id;
 
     System.out.println("mammal");
   }
