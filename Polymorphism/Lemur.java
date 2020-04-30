@@ -1,4 +1,6 @@
 public class Lemur extends Primate implements HasTail {
+  final int fi = 10;
+
   public boolean isTailStriped() {
     return false;
   }
