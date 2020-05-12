@@ -1,13 +1,13 @@
 public class Animal {
-  private int Id;
+  private String Id;
 
-  public Animal() {
-    // this.Id = animalId;
+  public Animal(String animalPrefix) {
+    this.Id = animalPrefix;
     // super();
     System.out.println("Animal");
   }
 
-  public int getAnimalId() {
-  return Id;
+  public String getAnimalId() {
+    return Id;
   }
 }

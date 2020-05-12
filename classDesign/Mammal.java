@@ -1,12 +1,17 @@
 public class Mammal extends Animal {
-  protected int id;
+  protected String Id;
   protected String species;
 
   public Mammal(String mammalSpecies) {
-    super();
+    super("AN");
     this.species = mammalSpecies;
+    this.Id = super.getAnimalId() + "-" + mammalSpecies;
 
     System.out.println("mammal");
+  }
+
+  public String getMammalId() {
+    return Id;
   }
 
 }
