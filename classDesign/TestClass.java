@@ -1,6 +1,23 @@
 public class TestClass {
   public static void main(String args[]) {
     A b = new B("good bye");
+
+    String result = "AniMal             ";
+    System.out.println(result.trim().toLowerCase().replace('a', 'A'));
+
+    Short condition = 1;
+    switch (condition) {
+      case 1:
+        System.out.println("1");
+        break;
+      case 2:
+        System.out.println("2");
+        break;
+      case 3:
+        System.out.println("3");
+        break;
+    }
+
   }
 }
 
