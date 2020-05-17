@@ -1,6 +1,7 @@
 public class TestClass {
+
   public static void main(String args[]) {
-    A b = new B("good bye");
+    A bb = new B("good bye");
 
     String result = "AniMal             ";
     System.out.println(result.trim().toLowerCase().replace('a', 'A'));
@@ -17,6 +18,27 @@ public class TestClass {
         System.out.println("3");
         break;
     }
+
+    System.out.println(Byte.MAX_VALUE);
+    System.out.println(Short.MAX_VALUE);
+    System.out.println(Integer.MAX_VALUE);
+    System.out.println(Long.MAX_VALUE);
+    System.out.println(Float.MAX_VALUE);
+    System.out.println(Double.MAX_VALUE);
+    System.out.println("Char: " + Character.MAX_VALUE);
+
+    System.out.println(Boolean.parseBoolean("true") == true);
+    System.out.println(Boolean.parseBoolean("TrUe") == new Boolean(null));
+    System.out.println(new Boolean("TrUe") == new Boolean(true));
+    // System.out.println(new Boolean() == false);
+    System.out.println(new Boolean("true") == Boolean.TRUE);
+    System.out.println(new Boolean("no") == false);
+
+    String mStr = "123";
+    long m = Long.valueOf(mStr).longValue();
+    long ma = Long.parseLong(mStr);
+
+    float amount = 1000.0f;
 
   }
 }
