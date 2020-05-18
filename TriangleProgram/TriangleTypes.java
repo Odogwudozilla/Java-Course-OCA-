@@ -18,6 +18,7 @@ public class TriangleTypes {
       TimeUnit.SECONDS.sleep(inSeconds);
 
     } catch (InterruptedException ex) {
+      System.out.println("The sleep was interrupted");
       Thread.currentThread().interrupt();
     }
   }
@@ -39,7 +40,7 @@ public class TriangleTypes {
 
   // prompts for user action. Returns @true if the user wants to continue. @false
   // otherwise
-  public static boolean isExit() {
+  public static boolean isContinue() {
     tryError();
     int startStop = userin.nextInt();
     if (startStop == 0) {
@@ -123,7 +124,7 @@ public class TriangleTypes {
 
       System.out.println("Do you want to try again?(1 = YES, 0 = NO)");
 
-    } while (isExit());
+    } while (isContinue());
 
   }
 
