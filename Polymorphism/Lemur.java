@@ -2,6 +2,10 @@ public class Lemur extends Primate implements HasTail {
   final int fi = 10;
 
   public boolean isTailStriped() {
+    return true;
+  }
+
+  public boolean hasHair() {
     return false;
   }
 
@@ -11,14 +15,15 @@ public class Lemur extends Primate implements HasTail {
     Lemur lemur = new Lemur();
     System.out.println(lemur.age);
 
-    HasTail hasTail = lemur;
+    HasTail hasTail = (Lemur) new Lemur();
     System.out.println(hasTail.isTailStriped());
 
-    Primate primate = lemur;
+    Primate primate = new Lemur();
+    System.out.println(primate.age);
     System.out.println(primate.hasHair());
 
     Primate primate1 = new Primate();
-    System.out.println("This instanceof is " + (primate1 instanceof HasTail));
+    System.out.println("This instanceof is " + (lemur instanceof NwaLemur));
     // Lemur lemur1 = (Lemur) primate1;
   }
 }

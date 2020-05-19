@@ -10,15 +10,18 @@ public class NwaLemur extends Lemur {
   }
 
   public boolean hasHair() {
-    return false;
+    return true;
   }
 
   public static void main(String[] args) {
-    // NwaLemur reference to a nwaLemur object. Nothing to see here
+    // NwaLemur reference to a nwaLemur object. Notice that in the casts to Lemur,
+    // the fields printed are from Lemur while the methods are from NwaLemur. Thus
+    // means that the referenceType of the variable determines the fields outputed
+    // while the Object Instance determines the method outputed
     NwaLemur nwaLemur = new NwaLemur();
     System.out.println(nwaLemur.getClass().getName() + "'s age is " + nwaLemur.nwaLemurAge);
     System.out.println(nwaLemur.getClass().getName() + "'s tail strippiness is " + nwaLemur.isTailStriped());
-    System.out.println(nwaLemur.getClass().getName() + "'s hairriness is " + nwaLemur.hasHair());
+    System.out.println(nwaLemur.getClass().getName() + "'s hairriness is " + ((Lemur) nwaLemur).hasHair());
     nwaLemur.fi = 20;
     System.out.println(nwaLemur.fi);
     System.out.println(((Lemur) nwaLemur).fi);
