@@ -1,7 +1,30 @@
+
+/**
+ * This program determins the type of triangle given any 3 sides as input.
+ * 
+ * @author Chidozie Nnachor
+ */
+
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class RunShape {
+
+  public static void welcomeMessage() {
+    System.out.println(
+        "Please choose the type of " + Shape.name + " you want to check \n(HINT: 1 = TRIANGLE, 2 = QUADRILATERAL)");
+  }
+
+  // define the variable for getting user input
+  static Scanner userin = new Scanner(System.in);
+
+  // Defines the error/exception method
+  static void tryError() {
+    while (!userin.hasNextDouble()) {
+      System.out.println("You have entered invalid data. Ensure entered data is a number");
+      userin.next();
+    }
+  }
 
   // sleeps the program for the stated number of seconds
   public static void iSleep(int inSeconds) {
@@ -18,36 +41,35 @@ public class RunShape {
   // prompts for user action. Returns @true if the user wants to continue. @false
   // otherwise
   public static boolean isContinue() {
-    Shape.tryError();
-    int startStop = Shape.userin.nextInt();
+    System.out.println("Do you want to continue?(1 = YES, 0 = NO)");
+    tryError();
+    int startStop = userin.nextInt();
     if (startStop == 0) {
       System.out.println("Bye...");
       return false;
     }
-    System.out.println("Restarting...");
-    iSleep(2);
+    System.out.println("Starting...");
+    iSleep(1);
     return true;
   }
 
   public static void main(String[] args) {
+    RunShape.welcomeMessage();
 
-    TriangleTypes.introMessage();
+    Shape thisRun = new Shape().chooseYourShape();
+
+    thisRun.getIntroMessage(thisRun);
     iSleep(2);
 
-    /**
-     * We need the program to run at least once. The user can then choose to run it
-     * again.
-     */
-    do {
+    while (isContinue()) {
 
       // We create a new object here and run the checks with the values we already
       // have
-      TriangleTypes at = new TriangleTypes();
-      at.determineTriangleType(at, at.getCalculateShape());
+      ShapeProperty sp = (ShapeProperty) thisRun; // cast the object to the interface
+      sp.calculateShape();
+      sp.determineShapeType();
 
-      System.out.println("Do you want to try again?(1 = YES, 0 = NO)");
-
-    } while (isContinue());
+    }
 
   }
 
