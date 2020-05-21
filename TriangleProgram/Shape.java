@@ -32,7 +32,8 @@ class Shape {
         chosenShape();
         break;
       case 2:
-        System.out.println("bat");
+        objectInFocus = new QuadrilateralTypes();
+        chosenShape();
         break;
       case 3:
         System.out.println("big bat");
