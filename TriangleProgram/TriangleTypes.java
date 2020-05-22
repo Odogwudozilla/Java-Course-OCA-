@@ -10,7 +10,8 @@ class TriangleTypes extends Shape implements ShapeProperty {
   public final String ISOS = "ISOSCELES";
   public final String SCAL = "SCALENE";
 
-  public String riderMessage = "\nRemember, for a triangle to be valid, the sum of any 2 sides will always be greater than the third side.";
+  public String riderMessage = "\nRemember, for a " + getName()
+      + " to be valid, the sum of any 2 sides will always be greater than the third side.";
 
   double[] theSides = new double[TRIANGLE_SIDE_LENGTH]; // create an array
   // Prints a welcome message to the console
@@ -18,8 +19,8 @@ class TriangleTypes extends Shape implements ShapeProperty {
   @Override
   public void introMessage() {
     System.out.println(
-        "This program collects three inputs (representing 'sides') from the user and then determines the type of triangle, given those sides."
-            + riderMessage + " \nLet's begin...");
+        "This program collects three inputs (representing 'sides') from the user and then determines the type of "
+            + getName() + ", given those sides." + riderMessage + " \nLet's begin...");
   }
 
   /**
@@ -32,6 +33,7 @@ class TriangleTypes extends Shape implements ShapeProperty {
         && (theSides[1] + theSides[2]) > theSides[0]) {
       return true;
     }
+    eachSide();
     return false;
 
   }
@@ -69,9 +71,9 @@ class TriangleTypes extends Shape implements ShapeProperty {
     for (int i = 0; i < theSides.length; i++) {
       // Get user input and check for errors/exception
       System.out.println("Enter a Value for Side " + (i + 1) + " of triangle:");
-      RunShape.tryError();
+
       // set absolute value of user input to each array element.
-      theSides[i] = Math.abs(RunShape.userin.nextDouble());
+      theSides[i] = Math.abs(RunShape.tryError());
       System.out.println("The entered value is " + theSides[i]);
 
     }

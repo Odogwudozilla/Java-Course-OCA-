@@ -17,19 +17,36 @@ public class RunShape {
 
   // define the variable for getting user input
   static Scanner userin = new Scanner(System.in);
+  static double useableValue;
 
   // Defines the error/exception method
-  static void tryError() {
+  static void wrongOption() {
     while (!userin.hasNextDouble()) {
       System.out.println("You have entered invalid data. Ensure entered data is a number");
       userin.next();
     }
+
+  }
+
+  static double tryError() {
+
+    do {
+      System.out.println("Please enter a positive number!");
+      while (!userin.hasNextDouble()) {
+        System.out.println("That's not a number!");
+        userin.next(); // this is important!
+      }
+      useableValue = userin.nextDouble();
+    } while (useableValue <= 0.0);
+
+    return useableValue;
+
   }
 
   // sleeps the program for the stated number of seconds
   public static void iSleep(int inSeconds) {
     try {
-      System.out.println("Loading...");
+
       TimeUnit.SECONDS.sleep(inSeconds);
 
     } catch (InterruptedException ex) {
@@ -42,7 +59,7 @@ public class RunShape {
   // otherwise
   public static boolean isContinue() {
     System.out.println("Do you want to continue?(1 = YES, 0 = NO)");
-    tryError();
+    wrongOption();
     int startStop = userin.nextInt();
     if (startStop == 0) {
       System.out.println("Bye...");

@@ -36,8 +36,15 @@ class QuadrilateralTypes extends Shape implements ShapeProperty {
 
   @Override
   public boolean isShapeValid(double[] theSides) {
-    // TODO Auto-generated method stub
-    return false;
+
+    // the length of the array must be equal to 4
+    if (theSides.length != 4) {
+      return false;
+    }
+    // each side must have a value greater than zero
+    eachSide();
+
+    return true;
   }
 
   @Override

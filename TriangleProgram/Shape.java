@@ -2,6 +2,8 @@ import java.util.*;
 
 class Shape {
 
+  double[] theSides;
+
   public Shape objectInFocus;
 
   public static String name = "SHAPE";
@@ -21,6 +23,16 @@ class Shape {
 
   public void getIntroMessage(Shape shapeType) {
     shapeType.introMessage();
+  }
+
+  public boolean eachSide() {
+    // each side of a shape object must have a value greater than zero
+    for (double eachSide : theSides) {
+      if (eachSide <= 0) {
+        return false;
+      }
+    }
+    return true;
   }
 
   public Shape chooseYourShape() {
