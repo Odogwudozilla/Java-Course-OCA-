@@ -13,13 +13,13 @@ class QuadrilateralTypes extends Shape implements ShapeProperty {
       + QUADRILATERAL_SIDE_LENGTH + " sides";
 
   double[] theSides = new double[QUADRILATERAL_SIDE_LENGTH]; // create an array
-  // Prints a welcome message to the console
 
+  // Prints a welcome message to the console
   @Override
   public void introMessage() {
-    System.out.println(
-        "This program collects inputs (representing 'sides') from the user and then determines the type of Quadrilateral, given those sides."
-            + riderMessage + " \nLet's begin...");
+    System.out
+        .println("This program collects inputs (representing 'sides') from the user and then determines the type of "
+            + getName() + ", given those sides." + riderMessage + " \nLet's begin...");
   }
 
   @Override
@@ -34,11 +34,13 @@ class QuadrilateralTypes extends Shape implements ShapeProperty {
     return null;
   }
 
+  /**
+   * The method below checks if the sides can form a valid Quadrilateral.
+   */
   @Override
   public boolean isShapeValid(double[] theSides) {
-
-    // the length of the array must be equal to 4
-    if (theSides.length != 4) {
+    // the length of the array of sides must be equal to 4
+    if (theSides.length != QUADRILATERAL_SIDE_LENGTH) {
       return false;
     }
     // each side must have a value greater than zero

@@ -46,9 +46,7 @@ public class RunShape {
   // sleeps the program for the stated number of seconds
   public static void iSleep(int inSeconds) {
     try {
-
       TimeUnit.SECONDS.sleep(inSeconds);
-
     } catch (InterruptedException ex) {
       System.out.println("The sleep was interrupted");
       Thread.currentThread().interrupt();
@@ -81,9 +79,9 @@ public class RunShape {
 
     while (isContinue()) {
 
-      // We create a new object here and run the checks with the values we already
-      // have
-      ShapeProperty sp = (ShapeProperty) thisRun; // cast the object to the interface
+      // We create a new object here (with the interface reference) and run the check.
+      // The object is cast to the interface because it has 'Shape' properties
+      ShapeProperty sp = (ShapeProperty) thisRun;
       sp.calculateShape();
       sp.determineShapeType();
 
