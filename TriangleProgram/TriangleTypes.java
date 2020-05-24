@@ -20,7 +20,7 @@ class TriangleTypes extends Shape implements ShapeProperty {
   public void introMessage() {
     System.out.println(
         "This program collects three inputs (representing 'sides') from the user and then determines the type of "
-            + getName() + ", given those sides." + riderMessage + " \nLet's begin...");
+            + getName() + ", given those sides." + riderMessage);
   }
 
   /**
@@ -59,7 +59,7 @@ class TriangleTypes extends Shape implements ShapeProperty {
         System.out.println(PREFIX + SCAL);
       }
     } else {
-      System.out.println("Sides entered cannot form a triangle. " + riderMessage);
+      System.out.println("Sides entered cannot form a " + getName() + ". " + riderMessage);
 
     }
 
@@ -70,7 +70,7 @@ class TriangleTypes extends Shape implements ShapeProperty {
 
     for (int i = 0; i < theSides.length; i++) {
       // Get user input and check for errors/exception
-      System.out.println("Enter a Value for Side " + (i + 1) + " of triangle:");
+      System.out.println("Enter a Value for Side " + (i + 1) + " of " + getName() + ":");
 
       // set absolute value of user input to each array element.
       theSides[i] = Math.abs(RunShape.tryError());
@@ -78,7 +78,7 @@ class TriangleTypes extends Shape implements ShapeProperty {
 
     }
     // Output array values to console
-    System.out.println("The Sides of the triangle are:");
+    System.out.println("The Sides of the " + getName() + " are:");
     System.out.println(Arrays.toString(theSides));
 
     return theSides;

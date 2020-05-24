@@ -1,3 +1,4 @@
+import java.util.*;
 
 class QuadrilateralTypes extends Shape implements ShapeProperty {
 
@@ -9,8 +10,8 @@ class QuadrilateralTypes extends Shape implements ShapeProperty {
   public final String SQUA = "SQUARE";
   public final String TRAP = "TRAPEZIUM";
 
-  public String riderMessage = "\nRemember, for a Quadrilateral to be valid, it must be a enclosed shape with exactly "
-      + QUADRILATERAL_SIDE_LENGTH + " sides";
+  public String riderMessage = "\nRemember, for a " + getName()
+      + " to be valid, it must be an enclosed shape with exactly " + QUADRILATERAL_SIDE_LENGTH + " sides";
 
   double[] theSides = new double[QUADRILATERAL_SIDE_LENGTH]; // create an array
 
@@ -19,19 +20,57 @@ class QuadrilateralTypes extends Shape implements ShapeProperty {
   public void introMessage() {
     System.out
         .println("This program collects inputs (representing 'sides') from the user and then determines the type of "
-            + getName() + ", given those sides." + riderMessage + " \nLet's begin...");
+            + getName() + ", given those sides." + riderMessage);
   }
 
   @Override
   public void determineShapeType() {
-    // TODO Auto-generated method stub
+    // Check if the shape is valid
+    if (isShapeValid(theSides)) {
+      // check for "Square"
+      if ((theSides[0] == theSides[1]) && (theSides[0] == theSides[2]) && (theSides[0] == theSides[3])
+          && (theSides[1] == theSides[2]) && (theSides[1] == theSides[3]) && (theSides[2] == theSides[3])) {
+        System.out.println(PREFIX + SQUA);
+        // check for "Rectangle"
+      } else if ((theSides[0] == theSides[1] && theSides[2] == theSides[3])
+          || (theSides[0] == theSides[2] && theSides[1] == theSides[3])
+          || (theSides[0] == theSides[3] && theSides[1] == theSides[2])) {
+        System.out.println(PREFIX + RECT);
+        // check for "Trapezium"
+      } else if ((theSides[0] == theSides[1] && theSides[2] != theSides[3])
+          || (theSides[0] == theSides[2] && theSides[1] != theSides[3])
+          || (theSides[0] == theSides[3] && theSides[1] != theSides[2])
+          || (theSides[1] == theSides[2] && theSides[0] != theSides[3])
+          || (theSides[1] == theSides[3] && theSides[0] != theSides[2])
+          || (theSides[2] == theSides[3] && theSides[1] != theSides[0])) {
+        System.out.println(PREFIX + TRAP);
+        // If the above don't hold, then it must be some toher polygon
+      } else {
+        System.out.println(PREFIX + " some other type of polygon.");
+      }
+    } else {
+      System.out.println("Sides entered cannot form a " + getName() + ". " + riderMessage);
+
+    }
 
   }
 
   @Override
   public double[] calculateShape() {
-    // TODO Auto-generated method stub
-    return null;
+    for (int i = 0; i < theSides.length; i++) {
+      // Get user input and check for errors/exception
+      System.out.println("Enter a Value for Side " + (i + 1) + " of " + getName() + ":");
+
+      // set absolute value of user input to each array element.
+      theSides[i] = Math.abs(RunShape.tryError());
+      System.out.println("The entered value is " + theSides[i]);
+
+    }
+    // Output array values to console
+    System.out.println("The Sides of the " + getName() + " are:");
+    System.out.println(Arrays.toString(theSides));
+
+    return theSides;
   }
 
   /**
@@ -44,7 +83,7 @@ class QuadrilateralTypes extends Shape implements ShapeProperty {
       return false;
     }
     // each side must have a value greater than zero
-    eachSide();
+    // eachSide();
 
     return true;
   }

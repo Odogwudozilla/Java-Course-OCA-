@@ -71,7 +71,7 @@ public class RunShape {
   public static void main(String[] args) {
 
     RunShape.welcomeMessage();
-
+    // Instanciates the particular shape via the superclass
     Shape thisRun = new Shape().chooseYourShape();
 
     thisRun.getIntroMessage(thisRun);
