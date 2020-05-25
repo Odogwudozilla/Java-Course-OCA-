@@ -3,17 +3,17 @@ import java.util.*;
 class QuadrilateralTypes extends Shape implements ShapeProperty {
 
   // set the final variables for the shape
-  public final int QUADRILATERAL_SIDE_LENGTH = 4;
-  public final String name = "QUADRILATERAL";
-  public final String PREFIX = "Your Quadrilateral is ";
-  public final String RECT = "RECTANGLE";
-  public final String SQUA = "SQUARE";
-  public final String TRAP = "TRAPEZIUM";
+  public static final int QUADRILATERAL_SIDE_LENGTH = 4;
+  public static final String NAME = "QUADRILATERAL";
+  public static final String PREFIX = "Your Quadrilateral is ";
+  public static final String RECT = "RECTANGLE";
+  public static final String SQUA = "SQUARE";
+  public static final String TRAP = "TRAPEZIUM";
 
   public String riderMessage = "\nRemember, for a " + getName()
       + " to be valid, it must be an enclosed shape with exactly " + QUADRILATERAL_SIDE_LENGTH + " sides";
 
-  double[] theSides = new double[QUADRILATERAL_SIDE_LENGTH]; // create an array
+  static double[] theSides = new double[QUADRILATERAL_SIDE_LENGTH]; // create an array
 
   // Prints a welcome message to the console
   @Override
@@ -90,7 +90,7 @@ class QuadrilateralTypes extends Shape implements ShapeProperty {
 
   @Override
   public String getName() {
-    return this.name;
+    return this.NAME;
   }
 
 }

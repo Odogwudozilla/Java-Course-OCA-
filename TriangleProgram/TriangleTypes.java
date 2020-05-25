@@ -3,17 +3,17 @@ import java.util.*;
 class TriangleTypes extends Shape implements ShapeProperty {
 
   // set the final variables for the shape
-  public final int TRIANGLE_SIDE_LENGTH = 3;
-  public final String name = "TRIANGLE";
-  public final String PREFIX = "Your Triangle is ";
-  public final String EQUI = "EQUILATERAL";
-  public final String ISOS = "ISOSCELES";
-  public final String SCAL = "SCALENE";
+  public static final int TRIANGLE_SIDE_LENGTH = 3;
+  public static final String NAME = "TRIANGLE";
+  public static final String PREFIX = "Your Triangle is ";
+  public static final String EQUI = "EQUILATERAL";
+  public static final String ISOS = "ISOSCELES";
+  public static final String SCAL = "SCALENE";
 
   public String riderMessage = "\nRemember, for a " + getName()
       + " to be valid, the sum of any 2 sides will always be greater than the third side.";
 
-  double[] theSides = new double[TRIANGLE_SIDE_LENGTH]; // create an array
+  static double[] theSides = new double[TRIANGLE_SIDE_LENGTH]; // create an array
   // Prints a welcome message to the console
 
   @Override
@@ -87,7 +87,7 @@ class TriangleTypes extends Shape implements ShapeProperty {
 
   @Override
   public String getName() {
-    return this.name;
+    return this.NAME;
   }
 
 }

@@ -64,4 +64,8 @@ class Shape {
     return name;
   }
 
+  public double[] getSides() {
+    return this.theSides;
+  }
+
 }
