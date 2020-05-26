@@ -21,20 +21,6 @@ class Shape {
     System.out.println("The chosen " + Shape.name + " is a " + objectInFocus.getName());
   }
 
-  public void getIntroMessage(Shape shapeType) {
-    shapeType.introMessage();
-  }
-
-  public boolean eachSide() {
-    // each side of a shape object must have a value greater than zero
-    for (double eachSide : theSides) {
-      if (eachSide <= 0) {
-        return false;
-      }
-    }
-    return true;
-  }
-
   public Shape chooseYourShape() {
 
     int input = new Scanner(System.in).nextInt();
@@ -58,6 +44,39 @@ class Shape {
 
     return objectInFocus;
 
+  }
+
+  public boolean eachSide() {
+    // each side of a shape object must have a value greater than zero
+    for (double eachSide : getSides()) {
+      if (eachSide <= 0) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public double[] calculateShape() {
+
+    for (int i = 0; i < getSides().length; i++) {
+      // Get user input and check for errors/exception
+      System.out.println("Enter a Value for Side " + (i + 1) + " of " + getName() + ":");
+
+      // set absolute value of user input to each array element.
+      getSides()[i] = Math.abs(RunShape.tryError());
+      System.out.println("The entered value is " + getSides()[i]);
+
+    }
+    // Output array values to console
+    System.out.println("The Sides of the " + getName() + " are:");
+    System.out.println(Arrays.toString(getSides()));
+
+    return getSides();
+
+  }
+
+  public void getIntroMessage(Shape shapeType) {
+    shapeType.introMessage();
   }
 
   public String getName() {

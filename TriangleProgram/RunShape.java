@@ -1,6 +1,10 @@
 
 /**
- * This program determins the type of triangle given any 3 sides as input.
+ * This program determinees the type of plane shape given any number of sides as input. The user can choose to check for:
+ * <ul>
+ * <li>@TriangleTypes</li>
+ * <li>@Quadrilaterals</li>
+ * </ul>
  * 
  * @author Chidozie Nnachor
  */
@@ -28,8 +32,9 @@ public class RunShape {
 
   }
 
+  // handle user input
   static double tryError() {
-
+    // the inputs must be a positive number
     do {
       System.out.println("Please enter a positive number!");
       while (!userin.hasNextDouble()) {
@@ -37,6 +42,8 @@ public class RunShape {
         userin.next(); // this is important!
       }
       useableValue = userin.nextDouble();
+      // keep asking for user input if the entered number is not greater than zero
+      // (since any side must be greater than zero)
     } while (useableValue <= 0.0);
 
     return useableValue;
@@ -71,18 +78,21 @@ public class RunShape {
   public static void main(String[] args) {
 
     RunShape.welcomeMessage();
-    // Instanciates the particular shape via the superclass
+    // Instanciates the particular shape (objectInFocus) via the superclass
     Shape thisRun = new Shape().chooseYourShape();
-
+    // print intro message for that objectInFocus
     thisRun.getIntroMessage(thisRun);
     iSleep(2);
 
+    // repeat the operations below as many times as the user wants
     while (isContinue()) {
+
+      // calculate the shape of the objectInFocus
+      thisRun.calculateShape();
 
       // We create a new object here (with the interface reference) and run the check.
       // The object is cast to the interface because it has 'Shape' properties
       ShapeProperty sp = (ShapeProperty) thisRun;
-      sp.calculateShape();
       sp.determineShapeType();
 
     }

@@ -2,20 +2,20 @@ import java.util.*;
 
 class TriangleTypes extends Shape implements ShapeProperty {
 
-  // set the final variables for the shape
+  // set the final variables for the shape. There is no reason for these to change
   public static final int TRIANGLE_SIDE_LENGTH = 3;
   public static final String NAME = "TRIANGLE";
   public static final String PREFIX = "Your Triangle is ";
   public static final String EQUI = "EQUILATERAL";
   public static final String ISOS = "ISOSCELES";
   public static final String SCAL = "SCALENE";
+  // create an array. The length is the same for all instances of a Triangle
+  static double[] theSides = new double[TRIANGLE_SIDE_LENGTH];
 
   public String riderMessage = "\nRemember, for a " + getName()
       + " to be valid, the sum of any 2 sides will always be greater than the third side.";
 
-  static double[] theSides = new double[TRIANGLE_SIDE_LENGTH]; // create an array
   // Prints a welcome message to the console
-
   @Override
   public void introMessage() {
     System.out.println(
@@ -29,11 +29,14 @@ class TriangleTypes extends Shape implements ShapeProperty {
    */
   @Override
   public boolean isShapeValid(double[] theSides) {
+
     if ((theSides[0] + theSides[1]) > theSides[2] && (theSides[0] + theSides[2]) > theSides[1]
         && (theSides[1] + theSides[2]) > theSides[0]) {
       return true;
     }
+    // check for null values
     eachSide();
+
     return false;
 
   }
@@ -44,7 +47,7 @@ class TriangleTypes extends Shape implements ShapeProperty {
    */
   @Override
   public void determineShapeType() {
-
+    // the triangle must be valid in the first place
     if (isShapeValid(theSides)) {
       // check for "Equilateral"
       if (theSides[0] == theSides[1] && theSides[0] == theSides[2]) {
@@ -66,28 +69,13 @@ class TriangleTypes extends Shape implements ShapeProperty {
   }
 
   @Override
-  public double[] calculateShape() {
-
-    for (int i = 0; i < theSides.length; i++) {
-      // Get user input and check for errors/exception
-      System.out.println("Enter a Value for Side " + (i + 1) + " of " + getName() + ":");
-
-      // set absolute value of user input to each array element.
-      theSides[i] = Math.abs(RunShape.tryError());
-      System.out.println("The entered value is " + theSides[i]);
-
-    }
-    // Output array values to console
-    System.out.println("The Sides of the " + getName() + " are:");
-    System.out.println(Arrays.toString(theSides));
-
-    return theSides;
-
+  public String getName() {
+    return NAME;
   }
 
   @Override
-  public String getName() {
-    return this.NAME;
+  public double[] getSides() {
+    return theSides;
   }
 
 }

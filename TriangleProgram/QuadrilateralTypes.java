@@ -2,18 +2,18 @@ import java.util.*;
 
 class QuadrilateralTypes extends Shape implements ShapeProperty {
 
-  // set the final variables for the shape
+  // set the final variables for the shape. There is no reason for these to change
   public static final int QUADRILATERAL_SIDE_LENGTH = 4;
   public static final String NAME = "QUADRILATERAL";
   public static final String PREFIX = "Your Quadrilateral is ";
   public static final String RECT = "RECTANGLE";
   public static final String SQUA = "SQUARE";
   public static final String TRAP = "TRAPEZIUM";
+  // create an array. The length is the same for all instances of a Quadrilateral
+  static double[] theSides = new double[QUADRILATERAL_SIDE_LENGTH];
 
   public String riderMessage = "\nRemember, for a " + getName()
       + " to be valid, it must be an enclosed shape with exactly " + QUADRILATERAL_SIDE_LENGTH + " sides";
-
-  static double[] theSides = new double[QUADRILATERAL_SIDE_LENGTH]; // create an array
 
   // Prints a welcome message to the console
   @Override
@@ -44,7 +44,7 @@ class QuadrilateralTypes extends Shape implements ShapeProperty {
           || (theSides[1] == theSides[3] && theSides[0] != theSides[2])
           || (theSides[2] == theSides[3] && theSides[1] != theSides[0])) {
         System.out.println(PREFIX + TRAP);
-        // If the above don't hold, then it must be some toher polygon
+        // If the above don't hold, then it must be some other polygon
       } else {
         System.out.println(PREFIX + " some other type of polygon.");
       }
@@ -53,24 +53,6 @@ class QuadrilateralTypes extends Shape implements ShapeProperty {
 
     }
 
-  }
-
-  @Override
-  public double[] calculateShape() {
-    for (int i = 0; i < theSides.length; i++) {
-      // Get user input and check for errors/exception
-      System.out.println("Enter a Value for Side " + (i + 1) + " of " + getName() + ":");
-
-      // set absolute value of user input to each array element.
-      theSides[i] = Math.abs(RunShape.tryError());
-      System.out.println("The entered value is " + theSides[i]);
-
-    }
-    // Output array values to console
-    System.out.println("The Sides of the " + getName() + " are:");
-    System.out.println(Arrays.toString(theSides));
-
-    return theSides;
   }
 
   /**
@@ -83,14 +65,19 @@ class QuadrilateralTypes extends Shape implements ShapeProperty {
       return false;
     }
     // each side must have a value greater than zero
-    // eachSide();
+    eachSide();
 
     return true;
   }
 
   @Override
   public String getName() {
-    return this.NAME;
+    return NAME;
+  }
+
+  @Override
+  public double[] getSides() {
+    return theSides;
   }
 
 }
