@@ -34,7 +34,7 @@ public class RunShape {
 
   // handle user input
   static double tryError() {
-    // the inputs must be a positive number
+    // the input must be a positive number
     do {
       System.out.println("Please enter a positive number!");
       while (!userin.hasNextDouble()) {
@@ -63,7 +63,7 @@ public class RunShape {
   // prompts for user action. Returns @true if the user wants to continue. @false
   // otherwise
   public static boolean isContinue() {
-    System.out.println("Do you want to continue?(1 = YES, 0 = NO)");
+    System.out.println("Do you want to continue?(0 = NO , any other key = YES)");
     wrongOption();
     int startStop = userin.nextInt();
     if (startStop == 0) {
@@ -91,7 +91,7 @@ public class RunShape {
       thisRun.calculateShape();
 
       // We create a new object here (with the interface reference) and run the check.
-      // The object is cast to the interface because it has 'Shape' properties
+      // The object is cast to the interface because it is a 'Shape'.
       ShapeProperty sp = (ShapeProperty) thisRun;
       sp.determineShapeType();
 

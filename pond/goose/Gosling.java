@@ -1,12 +1,14 @@
 package pond.goose;
 
-import pond.shore.Bird; // in a different package
+import pond.shore.*;
 
-public class Gosling extends Bird { // extends means create subclass
+// in a different package
+
+public class Gosling { // extends means create subclass
   public void swim() {
-    floatInWater(); // calling protected member
-    System.out.println(text); // calling protected member
+    // floatInWater(); // calling protected member
+    // System.out.println(text); // calling protected member
 
-    Bird goose = new Gosling();
+    // Bird goose = new Gosling();
   }
 }
