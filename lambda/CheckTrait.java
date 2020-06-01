@@ -1,3 +1,3 @@
 public interface CheckTrait {
-  boolean test(Animal a);
+  // boolean test(Animal a);
 }

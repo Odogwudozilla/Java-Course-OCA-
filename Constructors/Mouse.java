@@ -4,12 +4,12 @@ public class Mouse {
   private int weight;
 
   public Mouse(int weight) {
-    this(weight, 16, 6); // calls constructor with 2 parameters
+    this(weight, 16); // calls constructor with 2 parameters
     System.out.println("Constructor 1");
   }
 
   public Mouse(int weight, int numTeeth) {
-    // this(weight, numTeeth, 6); // calls constructor with 3 parameters
+    this(weight, numTeeth, 6); // calls constructor with 3 parameters
     System.out.println("Constructor 2");
   }
 
